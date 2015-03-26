@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live</title>
+    <script src="js/scrolls.js" language="javascript" type="text/javascript"></script>
+    <style>
+        html, body, div, h1, p, img {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft yahei';
+        }
+        .container {
+            width: 704px;
+            overflow: hidden;
+            height: 543px;
+        }
+        .scroll {
+            height: 80px;
+            background-color: #272b3c;
+        }
+        .scroll_inner {
+            width: 80%;
+            margin-left: 5%;
+            overflow: hidden;
+            line-height: 30px;
+            color: #fff;
+            font-size: 30px;
+            background: url(img/speaker.png) no-repeat 0px 50%;
+            padding-left: 10%;
+        }
+        .player-panel {
+            width: 704px;
+            overflow: hidden;
+            height: 400px;
+            z-index: 1;
+            position: relative;
+        }
+        .scroll_div {
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        #scroll_begin {
+            line-height: 80px;
+        }
+        .time {
+            background: url(img/speaker.png) no-repeat 0px 90%;
+            position: relative;
+            padding-top: 20px;
+        }
+        #scroll_begin,
+        #scroll_end,
+        #time {
+            display: inline;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="scroll">
+        <div class="scroll_inner">
+            <div id="scroll_div" class="scroll_div">
+                <div id="scroll_begin"> 【天使汇大屏幕】正在直播新股深交所上市挂牌敲钟仪式。
+                    【暴风科技】［300431］发行价：7.14元 发行市盈率：22.97
+                    【强力新材】［300429］发行价：15.89元 发行市盈率：22.99
+                    【龙津药业】［002750］发行价：21.21元 发行市盈率：19.74
+                </div>
+                <div id="scroll_end"></div>
+            </div>
+        </div>
+    </div>
+    <div class="player-panel">
+        <div class="video_box">
+            <video autoplay loop preload="auto" height="400" width="704">
+                <source src="a.mp4" type="video/mp4"/>
+            </video>
+        </div>
+    </div>
+    <div class="scroll">
+        <div class="scroll_inner time">
+            <div class="scroll_div">
+                <div id="time">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    scroll.init();
+
+    function showLocale(objD) {
+        var str, colorhead, colorfoot;
+        var yy = objD.getYear();
+        if (yy < 1900) yy = yy + 1900;
+        var MM = objD.getMonth() + 1;
+        if (MM < 10) MM = '0' + MM;
+        var dd = objD.getDate();
+        if (dd < 10) dd = '0' + dd;
+        var hh = objD.getHours();
+        if (hh < 10) hh = '0' + hh;
+        var mm = objD.getMinutes();
+        if (mm < 10) mm = '0' + mm;
+        var ss = objD.getSeconds();
+        if (ss < 10) ss = '0' + ss;
+        var ww = objD.getDay();
+        if (ww == 0)  colorhead = "<p>";
+        if (ww > 0 && ww < 6)  colorhead = "<p>";
+        if (ww == 6)  colorhead = "<p>";
+        if (ww == 0)  ww = "星期日";
+        if (ww == 1)  ww = "星期一";
+        if (ww == 2)  ww = "星期二";
+        if (ww == 3)  ww = "星期三";
+        if (ww == 4)  ww = "星期四";
+        if (ww == 5)  ww = "星期五";
+        if (ww == 6)  ww = "星期六";
+        colorfoot = "</p>"
+        str = colorhead + yy + "-" + MM + "-" + dd + " " + hh + ":" + mm + ":" + ss + "  " + ww + colorfoot;
+        return (str);
+    }
+    function tick() {
+        var today;
+        today = new Date();
+        document.getElementById("time").innerHTML = showLocale(today);
+        window.setTimeout("tick()", 1000);
+    }
+    tick();
+</script>
+
+</body>
+</html>
